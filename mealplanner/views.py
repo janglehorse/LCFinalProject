@@ -3,37 +3,30 @@ from django.http import HttpResponse
 from django.views import View
 from django.views.generic.edit import CreateView
 from django.views import generic
-from mealplanner.models import Recipe
+from mealplanner.models import Ingredient, Recipe
+from mealplanner.forms import RecipeForm
 
 # Create your views here.
 
-class HomeView(View):
+class RecipeIndex(View):
     def get(self, request, *args, **kwargs):
         q = Recipe.objects.all()
-        template_name = 'mealplanner/recipe_list.html'
+        template_name = 'mealplanner/recipe_index.html'
         return render(request, template_name, {'object_list': q})
 
 class RecipeCreate(CreateView):
+    form_class = RecipeForm
     model = Recipe
-    fields = ['title', 'text', 'ingredients']
+    #fields = ['name', 'text', 'ingredients']
 
-#TODO:
-#create DetailView(generic.DetailView)--
-#create corresponding template--
-#create corresponding urlconf--
-
-class DetailView(generic.DetailView):
+class RecipeDetail(generic.DetailView):
     model = Recipe
-    template_name = 'mealplanner/detail.html'
-    #TODO:
-    #logic to make recipe list into dictionary
-    #send that logic along to template
+    template_name = 'mealplanner/recipe-detail.html'
 
-    # def get_context_data(self, **kwargs):
-    #     # Call the base implementation first to get a context
-    #     context = super(BookListView, self).get_context_data(**kwargs)
-    #     # Get the blog from id and add it to the context
-    #     context['some_data'] = 'This is just some data'
-    #     return context
+class IngredientCreate(CreateView):
+    model = Ingredient
+    fields = ['name', 'quantity', 'unitOfMeasure']
 
-    
+class IngredientDetail(generic.DetailView):
+    model = Ingredient
+    template_name = 'mealplanner/ingredient-detail.html'
