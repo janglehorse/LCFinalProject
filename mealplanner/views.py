@@ -4,7 +4,7 @@ from django.views import View
 from django.views.generic.edit import CreateView
 from django.views import generic
 from mealplanner.models import Unit, Ingredient, Recipe
-from mealplanner.forms import RecipeForm
+from mealplanner.forms import RecipeForm, UnitForm
 
 # Create your views here.
 
@@ -30,3 +30,12 @@ class IngredientCreate(CreateView):
 class IngredientDetail(generic.DetailView):
     model = Ingredient
     template_name = 'mealplanner/ingredient-detail.html'
+
+class UnitCreate(CreateView):
+    form_class = UnitForm
+    template_name = 'mealplanner/unit_form.html'
+    #fields = ['quantity', 'unitOfMeasure']
+
+class UnitDetail(generic.DetailView):
+    model = Unit
+    template_name = 'mealplanner/unit-detail.html'

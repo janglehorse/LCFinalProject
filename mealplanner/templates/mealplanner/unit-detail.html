@@ -1,0 +1,3 @@
+{% load fractions %}
+<h1>Unit Detail</h1>
+<p> {% display_fraction unit.quantity allow_mixed_numbers=True %} {{ unit.get_unitOfMeasure_display }}</p>

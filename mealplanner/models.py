@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 
 from django.urls import reverse
+from djfractions.models import DecimalFractionField
 from django.db import models
 
 # Create your models here.
@@ -26,8 +27,10 @@ class Unit(models.Model):
         (FLOUNCE, 'fl oz'),
         (NONE, 'none'),
     )
-    quantity = models.DecimalField(max_digits=4,
-                                    decimal_places=2)
+    quantity = DecimalFractionField(max_digits=4,
+                                    decimal_places=2,
+                                    limit_denominator=8,
+                                    coerce_thirds=True)
     unitOfMeasure = models.CharField(
         max_length=2,
         choices=UNIT_OF_MEASURE_CHOICES,
@@ -36,6 +39,10 @@ class Unit(models.Model):
 
     def __str__(self):
         return str(self.quantity) + self.unitOfMeasure
+
+    def get_absolute_url(self):
+        return reverse('mealplanner:unit-detail', kwargs={'pk': self.pk})
+
 
 class Ingredient(models.Model):
 
