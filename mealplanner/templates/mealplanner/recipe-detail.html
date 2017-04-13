@@ -1,3 +1,11 @@
-<h1> {{ recipe.title }} </h1>
+<h1> {{ recipe.name }} </h1>
 <p> {{ recipe.text }} </p>
-<p> {{ recipe.ingredients }} </p>
+{% for ingredient in recipe.ingredients.all %}
+<p> {{ ingredient.name }}
+    {% for unit in ingredient.unit.all %}
+    - {{ unit.quantity }}
+    {% if not unit.unitOfMeasure == 'NA' %}
+    {{ unit.get_unitOfMeasure_display }}</p>
+    {% endif %}
+    {% endfor %}
+{% endfor %}

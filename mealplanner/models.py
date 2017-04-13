@@ -8,13 +8,14 @@ class User(models.Model):
     username = models.CharField(max_length=25)
     password = models.CharField(max_length=16)
 
-class Ingredient(models.Model):
+class Unit(models.Model):
     CUP = 'CP'
     TABLESPOON = 'TB'
     TEASPOON = 'TS'
     POUND = 'LB'
     OUNCE = 'OZ'
     FLOUNCE = 'FO'
+    NONE = 'NA'
 
     UNIT_OF_MEASURE_CHOICES = (
         (CUP, 'Cup'),
@@ -23,15 +24,23 @@ class Ingredient(models.Model):
         (POUND, 'lb'),
         (OUNCE, 'oz'),
         (FLOUNCE, 'fl oz'),
+        (NONE, 'none'),
     )
-
-    name = models.CharField(max_length=35)
-    quantity = models.IntegerField(default=1)
+    quantity = models.DecimalField(max_digits=4,
+                                    decimal_places=2)
     unitOfMeasure = models.CharField(
         max_length=2,
         choices=UNIT_OF_MEASURE_CHOICES,
         default=CUP,
     )
+
+    def __str__(self):
+        return str(self.quantity) + self.unitOfMeasure
+
+class Ingredient(models.Model):
+
+    name = models.CharField(max_length=35)
+    unit = models.ManyToManyField(Unit)
 
     def __str__(self):
         return self.name

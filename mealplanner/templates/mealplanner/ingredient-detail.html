@@ -1,2 +1,7 @@
 <h1> {{ ingredient.name }} </h1>
-<p> {{ ingredient.quantity }} &nbsp; {{ ingredient.get_unitOfMeasure_display }} </p>
+{% for unit in ingredient.unit.all %}
+<p>{% if not unit.unitOfMeasure == 'NA' %}
+    {{ unit.quantity }}
+    {{ unit.get_unitOfMeasure_display }}
+    {% endif %}</p>
+{% endfor %}

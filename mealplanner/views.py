@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.views import View
 from django.views.generic.edit import CreateView
 from django.views import generic
-from mealplanner.models import Ingredient, Recipe
+from mealplanner.models import Unit, Ingredient, Recipe
 from mealplanner.forms import RecipeForm
 
 # Create your views here.
@@ -25,7 +25,7 @@ class RecipeDetail(generic.DetailView):
 
 class IngredientCreate(CreateView):
     model = Ingredient
-    fields = ['name', 'quantity', 'unitOfMeasure']
+    fields = ['name', 'unit']
 
 class IngredientDetail(generic.DetailView):
     model = Ingredient

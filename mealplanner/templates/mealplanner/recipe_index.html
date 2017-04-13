@@ -4,9 +4,12 @@
         <li><a href="{% url 'mealplanner:recipe-detail' recipe.pk %}"><strong>{{ recipe.name }}</strong></a></li>
         <li>{{ recipe.text }}</li>
         {% for ingredient in recipe.ingredients.all %}
-        <li>{{ ingredient }}, {{ ingredient.quantity }} {{ ingredient.get_unitOfMeasure_display }}</li>
+        <li>{{ ingredient }}
+            {% for unit in ingredient.unit.all %}
+            - {{ unit.quantity }} {{ unit.get_unitOfMeasure_display }}</li>
         {% endfor %}
-        <li>{{ recipe.id }}</li>
+        {% endfor %}
+        <li>Recipe Id: {{ recipe.id }}</li>
     </p>
     {% endfor %}
 </ul>
