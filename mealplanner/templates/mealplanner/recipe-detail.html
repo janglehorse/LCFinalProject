@@ -4,7 +4,9 @@
 {% for ingredient in recipe.ingredient_set.all %}
 <p> {{ ingredient.name }}
     - {% display_fraction ingredient.quantity allow_mixed_numbers=True %}
+    {% if not ingredient.unitOfMeasure == 'NA' %}
     {{ ingredient.get_unitOfMeasure_display }}
+    {% endif %}
     {% if not ingredient.quantity_2 == 0 %}
     {% display_fraction ingredient.quantity_2 allow_mixed_numbers=True %}
     {{ ingredient.get_unitOfMeasure_2_display }}
