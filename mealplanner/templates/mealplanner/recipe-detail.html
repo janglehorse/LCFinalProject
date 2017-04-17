@@ -1,11 +1,19 @@
+{% load fractions %}
 <h1> {{ recipe.name }} </h1>
 <p> {{ recipe.text }} </p>
-{% for ingredient in recipe.ingredients.all %}
+{% for ingredient in recipe.ingredient_set.all %}
 <p> {{ ingredient.name }}
-    {% for unit in ingredient.unit.all %}
-    - {{ unit.quantity }}
-    {% if not unit.unitOfMeasure == 'NA' %}
-    {{ unit.get_unitOfMeasure_display }}</p>
+    - {% display_fraction ingredient.quantity allow_mixed_numbers=True %}
+    {{ ingredient.get_unitOfMeasure_display }}
+    {% if not ingredient.quantity_2 == 0 %}
+    {% display_fraction ingredient.quantity_2 allow_mixed_numbers=True %}
+    {{ ingredient.get_unitOfMeasure_2_display }}
     {% endif %}
-    {% endfor %}
+</p>
+{% endfor %}
+{% for instruction in recipe.instruction_set.all %}
+<p>
+{{ instruction.number }}
+{{ instruction.text }}
+</p>
 {% endfor %}
