@@ -1,0 +1,9 @@
+<div>
+    <h1>Create New Shopping List</h1>
+    <form action="." method="post">
+        {% csrf_token %}
+        <div>
+            {{ form.as_p }}
+        </div>
+        <input type="submit" value="Create List" class="submit" />
+    </form>

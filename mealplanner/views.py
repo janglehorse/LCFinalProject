@@ -83,7 +83,7 @@ class RecipeCreate(CreateView):
 
 class RecipeDetail(generic.DetailView):
     model = Recipe
-    template_name = 'mealplanner/recipe-detail.html'
+    template_name = 'mealplanner/recipe_detail.html'
 
 class RecipeUpdate(UpdateView):
     form_class = RecipeForm
@@ -157,6 +157,28 @@ class RecipeDelete(DeleteView):
 class ListCreate(CreateView):
     form_class = ShoppingListForm
     model = ShoppingList
+
+class ListDetail(generic.DetailView):
+    model = ShoppingList
+    template_name = 'mealplanner/shoppinglist_detail.html'
+
+class ListIndex(generic.base.TemplateView):
+
+    template_name = "mealplanner/list_index.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(ListIndex, self).get_context_data(**kwargs)
+        context['list_index'] = ShoppingList.objects.all()
+        return context
+
+class ListUpdate(UpdateView):
+    form_class = ShoppingListForm
+    model = ShoppingList
+    template_name_suffix = '_update_form'
+
+class ListDelete(DeleteView):
+    model = ShoppingList
+    success_url = '/mealplanner/lists'
 
 class IngredientCreate(CreateView):
     model = Ingredient
