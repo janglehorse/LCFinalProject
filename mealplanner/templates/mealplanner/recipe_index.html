@@ -1,15 +1,20 @@
+{% load fractions %}
+{% for recipe in object_list %}
 <ul>
-    {% for recipe in object_list %}
         <p>
         <li><a href="{% url 'mealplanner:recipe-detail' recipe.pk %}"><strong>{{ recipe.name }}</strong></a></li>
-        <li>{{ recipe.text }}</li>
-        {% for ingredient in recipe.ingredients.all %}
-        <li>{{ ingredient }}
-            {% for unit in ingredient.unit.all %}
-            - {{ unit.quantity }} {{ unit.get_unitOfMeasure_display }}</li>
-        {% endfor %}
-        {% endfor %}
-        <li>Recipe Id: {{ recipe.id }}</li>
-    </p>
+        <p>{{ recipe.text }}</p>
+        {% for ingredient in recipe.ingredient_set.all %}
+        <p> {{ ingredient.name }}
+            - {% display_fraction ingredient.quantity allow_mixed_numbers=True %}
+            {% if not ingredient.unitOfMeasure == 'NA' %}
+            {{ ingredient.get_unitOfMeasure_display }}
+            {% endif %}
+            {% if not ingredient.quantity_2 == 0 %}
+            {% display_fraction ingredient.quantity_2 allow_mixed_numbers=True %}
+            {{ ingredient.get_unitOfMeasure_2_display }}
+            {% endif %}
+        </p>
     {% endfor %}
 </ul>
+{% endfor %}

@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.views import View
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views import generic
 from mealplanner.models import Ingredient, Recipe
 from mealplanner.forms import RecipeForm, IngredientFormSet, InstructionFormSet
@@ -149,6 +149,10 @@ class RecipeUpdate(UpdateView):
             ingredient_form=ingredient_form,
             instruction_form=instruction_form)
             )
+
+class RecipeDelete(DeleteView):
+    model = Recipe
+    success_url = '/mealplanner'
 
 class IngredientCreate(CreateView):
     model = Ingredient
