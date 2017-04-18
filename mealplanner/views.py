@@ -4,8 +4,8 @@ from django.urls import reverse, reverse_lazy
 from django.views import View
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views import generic
-from mealplanner.models import Ingredient, Recipe
-from mealplanner.forms import RecipeForm, IngredientFormSet, InstructionFormSet
+from mealplanner.models import ShoppingList, Ingredient, Recipe
+from mealplanner.forms import ShoppingListForm, RecipeForm, IngredientFormSet, InstructionFormSet
 
 # Create your views here.
 
@@ -154,6 +154,10 @@ class RecipeDelete(DeleteView):
     model = Recipe
     success_url = '/mealplanner'
 
+class ListCreate(CreateView):
+    form_class = ShoppingListForm
+    model = ShoppingList
+
 class IngredientCreate(CreateView):
     model = Ingredient
     fields = [
@@ -161,7 +165,7 @@ class IngredientCreate(CreateView):
             'quantity',
             'unitOfMeasure',
             'quantity_2',
-            'unitOfMeasure_2' ]
+            'unitOfMeasure_2',]
 
 class IngredientDetail(generic.DetailView):
     model = Ingredient

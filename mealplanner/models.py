@@ -24,6 +24,9 @@ class Recipe(models.Model):
     def get_absolute_url(self):
         return reverse('mealplanner:recipe-detail', kwargs={'pk': self.pk})
 
+    class Meta:
+        ordering = ('name',)
+
 class Ingredient(models.Model):
 
     CUP = 'CP'
@@ -71,7 +74,7 @@ class Ingredient(models.Model):
         return self.name
 
     class Meta:
-        ordering = ['name']
+        ordering = ('name',)
 
     def get_absolute_url(self):
         return reverse('mealplanner:ingredient-detail', kwargs={'pk': self.pk})
@@ -83,3 +86,18 @@ class Instruction(models.Model):
 
     def __str__(self):
         return self.number + " " + self.text
+
+    class Meta:
+        ordering = ('number',)
+
+
+class ShoppingList(models.Model):
+    name = models.CharField(max_length=55)
+    created = models.DateTimeField(auto_now_add = True)
+    recipes = models.ManyToManyField(Recipe)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ('created',)

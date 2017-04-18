@@ -1,7 +1,19 @@
-from django.forms import ModelForm
+from django.forms import ModelForm, ModelMultipleChoiceField, CharField, CheckboxSelectMultiple
 from django.forms.models import inlineformset_factory
 
-from mealplanner.models import Ingredient, Recipe, Instruction
+from mealplanner.models import ShoppingList, Instruction, Ingredient, Recipe
+
+class ShoppingListForm(ModelForm):
+
+    name = CharField(max_length=55)
+    recipes = ModelMultipleChoiceField(
+                                    queryset = Recipe.objects.all(),
+                                    widget=CheckboxSelectMultiple(),
+                                    required=True
+                                    )
+    class Meta:
+        model = ShoppingList
+        fields = ('name', 'recipes')
 
 class RecipeForm(ModelForm):
 
