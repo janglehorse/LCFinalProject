@@ -180,6 +180,26 @@ class ListDelete(DeleteView):
     model = ShoppingList
     success_url = '/mealplanner/lists'
 
+class RecipeSearchListView(generic.ListView):
+
+    model = Recipe
+    context_object_name = 'search_results'
+    #queryset = Book.objects.filter(name__contains='ACME Publishing')
+    template_name = 'mealplanner/search_results.html'
+
+
+    def get_queryset(self):
+        result = super(RecipeSearchListView, self).get_queryset()
+
+        query = self.request.GET.get('q')
+        if not query == "":
+            result = Recipe.objects.filter(name__contains=query)
+        else:
+            result = None
+
+        return result
+
+
 class IngredientCreate(CreateView):
     model = Ingredient
     fields = [
