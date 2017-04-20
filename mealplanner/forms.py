@@ -25,6 +25,7 @@ IngredientFormSet = inlineformset_factory(
                                         Recipe,
                                         Ingredient,
                                         fields=('name',
+                                        'category',
                                         'quantity',
                                         'unitOfMeasure',
                                         'quantity_2',

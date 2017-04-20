@@ -1,4 +1,9 @@
+
+{% if list_index.count == 0 %}
+<p>No lists yet!</p>
+{% else %}
 {% for list in list_index %}
 <h3>{{ list.name }}</h3>
 <p>{{ list.created }}</p>
 {% endfor %}
+{% endif %}

@@ -37,6 +37,15 @@ class Ingredient(models.Model):
     FLOUNCE = 'FO'
     NONE = 'NA'
 
+    PRODUCE = 'PR'
+    SPICES = 'SP'
+    DAIRY = 'DY'
+    MEAT = 'MT'
+    FREEZER = 'FR'
+    BAKING = 'BK'
+    BAKERY = 'BY'
+    CANNED = 'CN'
+
     UNIT_OF_MEASURE_CHOICES = (
         (CUP, 'Cup'),
         (TABLESPOON, 'tbs'),
@@ -47,26 +56,50 @@ class Ingredient(models.Model):
         (NONE, 'none'),
     )
 
+    CATEGORY_CHOICES = (
+        (PRODUCE, 'Produce'),
+        (SPICES, 'Spices'),
+        (DAIRY, 'Dairy'),
+        (MEAT, 'Meat'),
+        (FREEZER, 'Refridgerated / Freezer'),
+        (BAKING, 'Baking'),
+        (BAKERY, 'Bakery'),
+        (CANNED, 'Canned / Packaged'),
+
+    )
+
+
     name = models.CharField(max_length=55)
     recipe = models.ForeignKey(Recipe)
-    quantity = DecimalFractionField(max_digits=4,
-                                    decimal_places=2,
-                                    limit_denominator=8,
-                                    coerce_thirds=True)
+    category = models.CharField(
+        max_length=2,
+        choices=CATEGORY_CHOICES,
+    )
+
+    quantity = DecimalFractionField(
+        max_digits=4,
+        decimal_places=2,
+        limit_denominator=8,
+        coerce_thirds=True,
+    )
+
     unitOfMeasure = models.CharField(
         max_length=2,
         choices=UNIT_OF_MEASURE_CHOICES,
         default=CUP,
     )
 
-    quantity_2 = DecimalFractionField(max_digits=4,
-                                    decimal_places=2,
-                                    limit_denominator=8,
-                                    coerce_thirds=True)
+    quantity_2 = DecimalFractionField(
+        max_digits=4,
+        decimal_places=2,
+        limit_denominator=8,
+        coerce_thirds=True,
+        default=0,
+        )
     unitOfMeasure_2 = models.CharField(
         max_length=2,
         choices=UNIT_OF_MEASURE_CHOICES,
-        default=TABLESPOON,
+        default=NONE,
     )
 
 
@@ -74,7 +107,7 @@ class Ingredient(models.Model):
         return self.name
 
     class Meta:
-        ordering = ('name',)
+        ordering = ('category',)
 
     def get_absolute_url(self):
         return reverse('mealplanner:ingredient-detail', kwargs={'pk': self.pk})

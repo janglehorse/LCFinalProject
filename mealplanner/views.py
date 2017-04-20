@@ -189,7 +189,7 @@ class RecipeSearchListView(generic.ListView):
 
 
     def get_queryset(self):
-        result = super(RecipeSearchListView, self).get_queryset()
+        #result = super(RecipeSearchListView, self).get_queryset()
 
         query = self.request.GET.get('q')
         if not query == "":

@@ -26,5 +26,6 @@
             {% endif %}
         </p>
     {% endfor %}
+    <a href="{% url 'mealplanner:recipe-update' recipe.pk %}">Edit</a>
 </ul>
 {% endfor %}
