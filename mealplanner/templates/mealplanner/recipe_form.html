@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Multiformset Demo</title>
+    <title>MealPlanner -  Add Recipe</title>
     <script src="{{ STATIC_URL }}js/jquery.min.js"></script>
     <script src="{{ STATIC_URL }}js/jquery.formset.js"></script>
     <script type="text/javascript">
@@ -18,7 +18,12 @@
 
 <body>
     <div>
-        <h1>Add Recipe</h1>
+        <h1>MealPlanner - Add Recipe</h1>
+        <nav th:fragment="navigation">
+            <a href="/mealplanner">Home</a> |
+            <a href="/mealplanner/lists">Shopping Lists</a> |
+            <a href="/mealplanner/addrecipe">Add Recipe</a>
+        </nav>
         <form action="." method="post">
             {% csrf_token %}
             <div>
@@ -59,7 +64,7 @@
                     </div>
                 {% endfor %}
             </fieldset>
-            <input type="submit" value="Add recipe" class="submit" />
+            <input type="submit" value="Add Recipe" class="submit" />
         </form>
     </div>
 </body>

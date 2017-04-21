@@ -1,6 +1,15 @@
+{% extends "mealplanner/base.html" %}
+
+{% block title %}
+{{ block.super }} - Delete {{ object.name }}?
+{% endblock %}
+
+{% block content %}
+
 {% load fractions %}
 
-<h1>Delete {{ object }}</h1>
+<h3>Are you sure you want to delete "{{ object.name }}"?</h3>
+<p>(Created {{ object.created }})</p>
 
     {% for recipe in object.recipes.all %}
     <h4>For {{ recipe.name }}</h4>
@@ -19,6 +28,7 @@
     {% endfor %}
 
     <form action="" method="post">{% csrf_token %}
-        <p>Are you sure you want to delete "{{ object }}"?</p>
-        <input type="submit" value="Confirm" />
+        <input type="submit" value="Confirm Delete" />
     </form>
+
+{% endblock %}

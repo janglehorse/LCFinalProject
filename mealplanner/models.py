@@ -139,8 +139,15 @@ class ShoppingList(models.Model):
     class Meta:
         ordering = ('created',)
 
+    #Methods for getting ingredeints by category:
+
     def produce(self):
+        """
+        Returns all ingredients in the ShoppingList in category specified in the function name.
+        """
+        #Find all recipes in the ShoppingList object
         pks = self.recipes.all().values_list('pk', flat=True)
+        #Find ingredients in those recipes by specified category
         q = Ingredient.objects.all().filter(category='PR', recipe__pk__in=pks).values('name').distinct().order_by('name')
         return q
 

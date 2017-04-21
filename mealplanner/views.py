@@ -158,11 +158,15 @@ class ListCreate(CreateView):
     form_class = ShoppingListForm
     model = ShoppingList
 
-class ListDetail(generic.DetailView):
+class ListByDepartment(generic.DetailView):
     model = ShoppingList
     #template_name = 'mealplanner/shoppinglist_detail.html'
-    template_name = 'mealplanner/shoppinglist_test.html'
-    
+    template_name = 'mealplanner/shoppinglist_by_department.html'
+
+class ListByRecipe(generic.DetailView):
+    model = ShoppingList
+    template_name = 'mealplanner/shoppinglist_by_recipe.html'
+
 class ListIndex(generic.base.TemplateView):
 
     template_name = "mealplanner/list_index.html"

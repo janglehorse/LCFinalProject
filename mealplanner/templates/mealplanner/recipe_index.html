@@ -1,13 +1,23 @@
+{% extends "mealplanner/base.html" %}
+
+{% block title %}
+{{ block.super }} - All Recipes
+{% endblock %}
+
+{% block content %}
+
 {% load fractions %}
 
 <div class="searchform">
 <form id="searchform" action="{% url 'mealplanner:recipe-search' %}" method="get" accept-charset="utf-8">
-      <input class="searchfield" id="searchbox" name="q" type="text" placeholder="Search">
+      <input class="searchfield" id="searchbox" name="q" type="text" placeholder="Recipe Name">
       <button class="searchbutton" type="submit">
-        <i>Search</i>
+        <i>Search Recipes</i>
       </button>
     </form>
 </div>
+
+<h2>All Recipes</h2>
 
 {% for recipe in object_list %}
 <ul>
@@ -26,6 +36,8 @@
             {% endif %}
         </p>
     {% endfor %}
-    <a href="{% url 'mealplanner:recipe-update' recipe.pk %}">Edit</a>
+    <a href="{% url 'mealplanner:recipe-update' recipe.pk %}">Edit</a> | <a href="{% url 'mealplanner:recipe-delete' recipe.pk %}">Delete</a> 
 </ul>
 {% endfor %}
+
+{% endblock %}

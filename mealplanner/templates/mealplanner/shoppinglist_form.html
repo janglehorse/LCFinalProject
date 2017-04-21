@@ -1,3 +1,10 @@
+{% extends "mealplanner/base.html" %}
+
+{% block title %}
+{{ block.super }} - Create New Shopping List
+{% endblock %}
+
+{% block content %}
 <div>
     <h1>Create New Shopping List</h1>
     <form action="." method="post">
@@ -7,3 +14,4 @@
         </div>
         <input type="submit" value="Create List" class="submit" />
     </form>
+{% endblock %}
