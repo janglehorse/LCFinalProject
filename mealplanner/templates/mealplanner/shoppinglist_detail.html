@@ -1,7 +1,6 @@
 {% load fractions %}
 <h1> {{ shoppinglist.name }} </h1>
 <p> Created on {{ shoppinglist.created }} </p>
-{# {% for answer in objs.answers.all %} #}
 {% for recipe in shoppinglist.recipes.all %}
 <h4>For {{ recipe.name }}</h4>
 {% for ingredient in recipe.ingredient_set.all %}

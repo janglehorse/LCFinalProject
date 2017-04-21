@@ -160,8 +160,9 @@ class ListCreate(CreateView):
 
 class ListDetail(generic.DetailView):
     model = ShoppingList
-    template_name = 'mealplanner/shoppinglist_detail.html'
-
+    #template_name = 'mealplanner/shoppinglist_detail.html'
+    template_name = 'mealplanner/shoppinglist_test.html'
+    
 class ListIndex(generic.base.TemplateView):
 
     template_name = "mealplanner/list_index.html"
