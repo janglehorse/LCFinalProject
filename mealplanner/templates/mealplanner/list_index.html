@@ -3,7 +3,7 @@
 <p>No lists yet!</p>
 {% else %}
 {% for list in list_index %}
-<h3>{{ list.name }}</h3>
+<h3><a href="{% url 'mealplanner:list-detail' list.pk %}">{{ list.name }}</a></h3>
 <p>{{ list.created }}</p>
 {% endfor %}
 {% endif %}

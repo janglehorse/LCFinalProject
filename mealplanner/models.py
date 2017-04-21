@@ -139,7 +139,42 @@ class ShoppingList(models.Model):
     class Meta:
         ordering = ('created',)
 
-    def produce_list(self):
+    def produce(self):
         pks = self.recipes.all().values_list('pk', flat=True)
-        ingredients = Ingredient.objects.all().filter(category='PR', recipe__pk__in=pks).values('name').distinct().order_by('name')
-        return ingredients
+        q = Ingredient.objects.all().filter(category='PR', recipe__pk__in=pks).values('name').distinct().order_by('name')
+        return q
+
+    def meat(self):
+        pks = self.recipes.all().values_list('pk', flat=True)
+        q = Ingredient.objects.all().filter(category='MT', recipe__pk__in=pks).values('name').distinct().order_by('name')
+        return q
+
+    def spices(self):
+        pks = self.recipes.all().values_list('pk', flat=True)
+        q = Ingredient.objects.all().filter(category='SP', recipe__pk__in=pks).values('name').distinct().order_by('name')
+        return q
+
+    def dairy(self):
+        pks = self.recipes.all().values_list('pk', flat=True)
+        q = Ingredient.objects.all().filter(category='DY', recipe__pk__in=pks).values('name').distinct().order_by('name')
+        return q
+
+    def freezer(self):
+        pks = self.recipes.all().values_list('pk', flat=True)
+        q = Ingredient.objects.all().filter(category='FR', recipe__pk__in=pks).values('name').distinct().order_by('name')
+        return q
+
+    def bakery(self):
+        pks = self.recipes.all().values_list('pk', flat=True)
+        q = Ingredient.objects.all().filter(category='BY', recipe__pk__in=pks).values('name').distinct().order_by('name')
+        return q
+
+    def baking(self):
+        pks = self.recipes.all().values_list('pk', flat=True)
+        q = Ingredient.objects.all().filter(category='BK', recipe__pk__in=pks).values('name').distinct().order_by('name')
+        return q
+
+    def canned(self):
+        pks = self.recipes.all().values_list('pk', flat=True)
+        q = Ingredient.objects.all().filter(category='CN', recipe__pk__in=pks).values('name').distinct().order_by('name')
+        return q
