@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <title>
+            {% block title %}
+            Meal Planner
+            {% endblock %}
+        </title>
+    </head>
+
+    <body>
+
+        <div>
+            <header>
+                <h1>Meal Planner</h1>
+            </header>
+            <main>
+                <nav th:fragment="navigation">
+                    <a href="/mealplanner">Home</a> |
+                    <a href="/mealplanner/lists">Shopping Lists</a> |
+                    <a href="/mealplanner/addrecipe">Add Recipe</a>
+                </nav>
+
+                {% block content %}
+                This is default content!
+                {% endblock %}
+            </main>
+        </div>
+
+        <footer>
+            <p>
+                &copy; 2017 <a href="https://github.com/janglehorse">Caleb Travers</a>
+            <p>
+                <a href="https://github.com/janglehorse/LCFinalProject">
+                    View Source Code for This Project</a>
+            </p>
+        </footer>
+
+</html>

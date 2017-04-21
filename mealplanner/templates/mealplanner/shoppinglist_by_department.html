@@ -1,0 +1,73 @@
+{% extends "mealplanner/base.html" %}
+
+{% block title %}
+{{ block.super }} - {{ shoppinglist.name|title }}
+{% endblock %}
+
+{% block content %}
+
+{% load fractions %}
+
+<h1> {{ shoppinglist.name }} </h1>
+<p>Created on {{ shoppinglist.created }}</p>
+
+<h3>Sort: <a href="{% url 'mealplanner:list-recipe' shoppinglist.pk %}">By Recipe</a> | By Deparment</h3>
+
+
+{% if shoppinglist.produce %}
+<h4>Produce:</h4>
+{% for ingredient in shoppinglist.produce %}
+<p>{{ ingredient.name }}</p>
+{% endfor %}
+{% endif %}
+
+{% if shoppinglist.meat %}
+<h4>Meat:</h4>
+{% for ingredient in shoppinglist.meat %}
+<p>{{ ingredient.name }}</p>
+{% endfor %}
+{% endif %}
+
+{% if shoppinglist.spices %}
+<h4>Spices:</h4>
+{% for ingredient in shoppinglist.spices %}
+<p>{{ ingredient.name }}</p>
+{% endfor %}
+{% endif %}
+
+{% if shoppinglist.dairy %}
+<h4>Dairy:</h4>
+{% for ingredient in shoppinglist.dairy %}
+<p>{{ ingredient.name }}</p>
+{% endfor %}
+{% endif %}
+
+{% if shoppinglist.freezer %}
+<h4>Refridgerated / Freezer:</h4>
+{% for ingredient in shoppinglist.freezer %}
+<p>{{ ingredient.name }}</p>
+{% endfor %}
+{% endif %}
+
+{% if shoppinglist.baking %}
+<h4>Baking:</h4>
+{% for ingredient in shoppinglist.baking %}
+<p>{{ ingredient.name }}</p>
+{% endfor %}
+{% endif %}
+
+{% if shoppinglist.bakery %}
+<h4>Bakery:</h4>
+{% for ingredient in shoppinglist.bakery %}
+<p>{{ ingredient.name }}</p>
+{% endfor %}
+{% endif %}
+
+{% if shoppinglist.canned %}
+<h4>Canned:</h4>
+{% for ingredient in shoppinglist.canned %}
+<p>{{ ingredient.name }}</p>
+{% endfor %}
+{% endif %}
+
+{% endblock %}
