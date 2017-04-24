@@ -1,13 +1,29 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse
 from django.views import View
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views import generic
 from mealplanner.models import ShoppingList, Ingredient, Recipe
-from mealplanner.forms import ShoppingListForm, RecipeForm, IngredientFormSet, InstructionFormSet
+from mealplanner.forms import SignUpForm, ShoppingListForm, RecipeForm, IngredientFormSet, InstructionFormSet
+from django.contrib.auth import login, authenticate
 
 # Create your views here.
+
+def signup(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return redirect('mealplanner:recipe-index')
+    else:
+        form = SignUpForm()
+    return render(request, 'mealplanner/signup.html', {'form':form})
+
 
 class RecipeIndex(View):
     def get(self, request, *args, **kwargs):
@@ -154,6 +170,21 @@ class RecipeDelete(DeleteView):
     model = Recipe
     success_url = '/mealplanner'
 
+class RecipeSearchListView(generic.ListView):
+
+    model = Recipe
+    context_object_name = 'search_results'
+    template_name = 'mealplanner/search_results.html'
+
+    def get_queryset(self):
+        #result = super(RecipeSearchListView, self).get_queryset()
+        query = self.request.GET.get('q')
+        if not query == "":
+            result = Recipe.objects.filter(name__contains=query)
+        else:
+            result = None
+        return result
+
 class ListCreate(CreateView):
     form_class = ShoppingListForm
     model = ShoppingList
@@ -184,26 +215,6 @@ class ListUpdate(UpdateView):
 class ListDelete(DeleteView):
     model = ShoppingList
     success_url = '/mealplanner/lists'
-
-class RecipeSearchListView(generic.ListView):
-
-    model = Recipe
-    context_object_name = 'search_results'
-    #queryset = Book.objects.filter(name__contains='ACME Publishing')
-    template_name = 'mealplanner/search_results.html'
-
-
-    def get_queryset(self):
-        #result = super(RecipeSearchListView, self).get_queryset()
-
-        query = self.request.GET.get('q')
-        if not query == "":
-            result = Recipe.objects.filter(name__contains=query)
-        else:
-            result = None
-
-        return result
-
 
 class IngredientCreate(CreateView):
     model = Ingredient
