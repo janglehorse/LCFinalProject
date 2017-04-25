@@ -8,6 +8,7 @@ app_name = 'mealplanner'
 urlpatterns = [
 
     url(r'^signup/$', views.signup, name='signup'),
+    url(r'^user/(?P<pk>[0-9]+)/$', views.UserRecipeIndex.as_view(), name='user-recipes'),
     url(r'^$', views.RecipeIndex.as_view(), name='recipe-index'),
     url(r'^addrecipe/$', views.RecipeCreate.as_view(), name='recipe-add' ),
     url(r'^(?P<pk>[0-9]+)/$', views.RecipeDetail.as_view(), name='recipe-detail'),

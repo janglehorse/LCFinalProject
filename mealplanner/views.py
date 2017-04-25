@@ -3,10 +3,14 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.views import View
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.list import ListView
 from django.views import generic
 from mealplanner.models import ShoppingList, Ingredient, Recipe
+from django.contrib.auth.models import User
 from mealplanner.forms import SignUpForm, ShoppingListForm, RecipeForm, IngredientFormSet, InstructionFormSet
 from django.contrib.auth import login, authenticate
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 # Create your views here.
 
@@ -25,13 +29,37 @@ def signup(request):
     return render(request, 'mealplanner/signup.html', {'form':form})
 
 
-class RecipeIndex(View):
-    def get(self, request, *args, **kwargs):
-        q = Recipe.objects.all()
-        template_name = 'mealplanner/recipe_index.html'
-        return render(request, template_name, {'object_list': q})
+class RecipeIndex(ListView):
 
-class RecipeCreate(CreateView):
+    model = Recipe
+    title = 'All Recipes'
+    template_name = 'mealplanner/recipe_index.html'
+
+    # def get(self, request, *args, **kwargs):
+    #     q = Recipe.objects.all()
+    #     template_name = 'mealplanner/recipe_index.html'
+    #     return render(request, template_name, {'object_list': q})
+
+
+class UserRecipeIndex(generic.DetailView):
+
+    model = User
+    title = 'Recipes by '
+    template_name = 'mealplanner/user_recipe_index.html'
+
+    # def get_context_data(self, **kwargs):
+    #     # Call the base implementation first to get a context
+    #     context = super(UserRecipeIndex, self).get_context_data(**kwargs)
+    #     # Add in a QuerySet of all the books
+    #     context['object_list'] = User.objects.get(self.kwargs['pk'])
+    #     return context
+
+    # def get(self, request, *args, **kwargs):
+    #     q = Recipe.objects.filter(author_id=self.kwargs['pk'])
+    #     template_name = 'mealplanner/recipe_index.html'
+    #     return render(request, template_name, {'object_list': q})
+
+class RecipeCreate(LoginRequiredMixin, CreateView):
     form_class = RecipeForm
     model = Recipe
     #success_url = reverse('mealplanner:recipe-detail', kwargs={'pk': self.pk})
@@ -75,8 +103,13 @@ class RecipeCreate(CreateView):
         associated Ingredients and Instructions and then redirects to a
         success page.
         """
-
-        self.object = form.save()
+        #obj = form.save(commit=False)
+        #obj.author = self.request.user
+        #...
+        # obj.save
+        self.object = form.save(commit=False)
+        self.object.author = self.request.user
+        self.object.save()
         ingredient_form.instance = self.object
         ingredient_form.save()
         instruction_form.instance = self.object

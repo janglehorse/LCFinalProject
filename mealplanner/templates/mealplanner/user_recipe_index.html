@@ -20,13 +20,9 @@
 <div class="container">
     <div>
 
-            <h2>{% if view.title %}
-                {{ view.title }} {{ recipe.author }}
-                {% else %}
-                All Recipes
-                {% endif %}</h2>
+            <h2>{{ view.title }} {{ user.username }}</h2>
 
-            {% for recipe in object_list %}
+            {% for recipe in user.recipe_set.all %}
             <ul>
                     <p>
                     <li><a href="{% url 'mealplanner:recipe-detail' recipe.pk %}"><strong>{{ recipe.name }}</strong></a></li>

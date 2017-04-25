@@ -27,6 +27,10 @@
 {{ instruction.text }}
 </p>
 {% endfor %}
+
+{% if recipe.author %}
+    <p><strong>Created by {{ recipe.author.username }}</strong></p>
+{% endif %}
 <a href="{% url 'mealplanner:recipe-update' recipe.pk %}">Edit this recipe</a>
 
 {% endblock %}
