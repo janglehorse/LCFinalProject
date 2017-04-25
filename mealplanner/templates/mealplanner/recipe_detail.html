@@ -29,7 +29,7 @@
 {% endfor %}
 
 {% if recipe.author %}
-    <p><strong>Created by {{ recipe.author.username }}</strong></p>
+    <p><strong>Created by <a href="{% url 'mealplanner:user-recipes' pk=recipe.author.id %}">{{ recipe.author.username }}</a></strong></p>
 {% endif %}
 <a href="{% url 'mealplanner:recipe-update' recipe.pk %}">Edit this recipe</a>
 

@@ -30,39 +30,19 @@ def signup(request):
 
 
 class RecipeIndex(ListView):
-
     model = Recipe
     title = 'All Recipes'
     template_name = 'mealplanner/recipe_index.html'
 
-    # def get(self, request, *args, **kwargs):
-    #     q = Recipe.objects.all()
-    #     template_name = 'mealplanner/recipe_index.html'
-    #     return render(request, template_name, {'object_list': q})
-
 
 class UserRecipeIndex(generic.DetailView):
-
     model = User
     title = 'Recipes by '
     template_name = 'mealplanner/user_recipe_index.html'
 
-    # def get_context_data(self, **kwargs):
-    #     # Call the base implementation first to get a context
-    #     context = super(UserRecipeIndex, self).get_context_data(**kwargs)
-    #     # Add in a QuerySet of all the books
-    #     context['object_list'] = User.objects.get(self.kwargs['pk'])
-    #     return context
-
-    # def get(self, request, *args, **kwargs):
-    #     q = Recipe.objects.filter(author_id=self.kwargs['pk'])
-    #     template_name = 'mealplanner/recipe_index.html'
-    #     return render(request, template_name, {'object_list': q})
-
 class RecipeCreate(LoginRequiredMixin, CreateView):
     form_class = RecipeForm
     model = Recipe
-    #success_url = reverse('mealplanner:recipe-detail', kwargs={'pk': self.pk})
 
     def get(self, request, *args, **kwargs):
         """
