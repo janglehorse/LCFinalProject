@@ -23,19 +23,23 @@
                   <div class="collapse navbar-collapse" id="navbarsExampleDefault">
                     <ul class="navbar-nav mr-auto">
                       <li class="nav-link" style="list-style: none">
+                          <a class="nav-link" href="/mealplanner/addrecipe">Add Recipe</a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                      </li>
+                      <li class="nav-item" style="list-style: none">
                         <a class="nav-link" href="/mealplanner/lists">Shopping Lists</a>
                         &nbsp;&nbsp;&nbsp;&nbsp;
                       </li>
                       <li class="nav-item" style="list-style: none">
-                        <a class="nav-link" href="/mealplanner/addrecipe">Add Recipe</a>
+                        <a class="nav-link" href="/mealplanner/addlist">New Shopping List</a>
                         &nbsp;&nbsp;&nbsp;&nbsp;
                       </li>
                       <li style="list-style: none; color:white">
                           {% if user.is_authenticated %}
-                          Logged in as {{ user.username }} | <a href="{% url 'logout' %}">Log Out</a>
+                          Logged in as {{ request.user.username }}&nbsp;|&nbsp;<a href="{% url 'logout' %}">Log Out</a>
                           &nbsp;&nbsp;&nbsp;&nbsp;
                           {% else %}
-                          Not logged in. <a href="{% url 'login' %}">Login</a>
+                          Not logged in &nbsp;|&nbsp; <a href="{% url 'login' %}">Login</a>
                           &nbsp;&nbsp;&nbsp;&nbsp;
                           {% endif %}
                     </ul>

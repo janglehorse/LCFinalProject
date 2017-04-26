@@ -20,11 +20,7 @@
 <div class="container">
     <div>
 
-            <h2>{% if view.title %}
-                {{ view.title }} {{ recipe.author }}
-                {% else %}
-                All Recipes
-                {% endif %}</h2>
+            <h2>{{ view.title }}</h2>
 
             {% for recipe in object_list %}
             <ul>

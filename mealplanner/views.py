@@ -41,6 +41,8 @@ class UserRecipeIndex(generic.DetailView):
     template_name = 'mealplanner/user_recipe_index.html'
 
 class RecipeCreate(LoginRequiredMixin, CreateView):
+    login_url = '/login/'
+    redirect_field_name = 'redirect_to'
     form_class = RecipeForm
     model = Recipe
 
@@ -83,10 +85,7 @@ class RecipeCreate(LoginRequiredMixin, CreateView):
         associated Ingredients and Instructions and then redirects to a
         success page.
         """
-        #obj = form.save(commit=False)
-        #obj.author = self.request.user
-        #...
-        # obj.save
+
         self.object = form.save(commit=False)
         self.object.author = self.request.user
         self.object.save()
@@ -114,7 +113,10 @@ class RecipeDetail(generic.DetailView):
     model = Recipe
     template_name = 'mealplanner/recipe_detail.html'
 
-class RecipeUpdate(UpdateView):
+class RecipeUpdate(LoginRequiredMixin, UpdateView):
+    login_url = '/login/'
+    redirect_field_name = 'redirect_to'
+
     form_class = RecipeForm
     model = Recipe
     template_name_suffix = '_update_form'
@@ -184,7 +186,6 @@ class RecipeDelete(DeleteView):
     success_url = '/mealplanner'
 
 class RecipeSearchListView(generic.ListView):
-
     model = Recipe
     context_object_name = 'search_results'
     template_name = 'mealplanner/search_results.html'
@@ -198,7 +199,10 @@ class RecipeSearchListView(generic.ListView):
             result = None
         return result
 
-class ListCreate(CreateView):
+class ListCreate(LoginRequiredMixin, CreateView):
+    login_url = '/login/'
+    redirect_field_name = 'redirect_to'
+
     form_class = ShoppingListForm
     model = ShoppingList
 
@@ -220,7 +224,10 @@ class ListIndex(generic.base.TemplateView):
         context['list_index'] = ShoppingList.objects.all()
         return context
 
-class ListUpdate(UpdateView):
+class ListUpdate(LoginRequiredMixin, UpdateView):
+    login_url = '/login/'
+    redirect_field_name = 'redirect_to'
+
     form_class = ShoppingListForm
     model = ShoppingList
     template_name_suffix = '_update_form'
