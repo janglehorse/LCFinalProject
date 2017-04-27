@@ -208,7 +208,6 @@ class ListCreate(LoginRequiredMixin, CreateView):
 
 class ListByDepartment(generic.DetailView):
     model = ShoppingList
-    #template_name = 'mealplanner/shoppinglist_detail.html'
     template_name = 'mealplanner/shoppinglist_by_department.html'
 
 class ListByRecipe(generic.DetailView):

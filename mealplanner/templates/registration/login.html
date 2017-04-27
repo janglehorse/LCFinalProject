@@ -5,12 +5,12 @@ Login
 {% endblock %}
 
 {% block content %}
-
+<div class="containter">
     <h2>Login</h2>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value="Login">
-</form>
-
+    </form>
+</div>
 {% endblock %}
