@@ -9,45 +9,53 @@
 {% load fractions %}
 
 <div class="container">
-    <form id="searchform" action="{% url 'mealplanner:recipe-search' %}" method="get" accept-charset="utf-8">
-          <input class="searchfield" id="searchbox" name="q" type="text" placeholder="Recipe Name">
-          <button class="searchbutton" type="submit">
-            <i>Search Recipes</i>
-          </button>
-    </form>
-</div>
+    <h2>{{ view.title }}</h2>
+    <br>
+    <br>
+    {% for recipe in object_list %}
+    <ul>
 
-<div class="container">
-    <div>
-
-            <h2>{{ view.title }}</h2>
-
-            {% for recipe in object_list %}
-            <ul>
-                    <p>
-                    <li><a href="{% url 'mealplanner:recipe-detail' recipe.pk %}"><strong>{{ recipe.name }}</strong></a></li>
-                    <p>{{ recipe.text }}</p>
+            <li>
+                <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h4><a href="{% url 'mealplanner:recipe-detail' recipe.pk %}">{{ recipe.name }}</a></h4>
+                </div>
+                    <div class="panel-body"><i>{{ recipe.text }}</i></div>
                     {% for ingredient in recipe.ingredient_set.all %}
-                    <p> {{ ingredient.name }}
-                        - {% display_fraction ingredient.quantity allow_mixed_numbers=True %}
-                        {% if not ingredient.unitOfMeasure == 'NA' %}
-                        {{ ingredient.get_unitOfMeasure_display }}
-                        {% endif %}
-                        {% if not ingredient.quantity_2 == 0 %}
-                        {% display_fraction ingredient.quantity_2 allow_mixed_numbers=True %}
-                        {{ ingredient.get_unitOfMeasure_2_display }}
-                        {% endif %}
-                    </p>
-                {% endfor %}
+                    <div class="panel-body">
+                        <ul>
+                            <li><strong>{{ ingredient.name }}</strong>
+                            - {% display_fraction ingredient.quantity allow_mixed_numbers=True %}
+                            {% if not ingredient.unitOfMeasure == 'NA' %}
+                            {{ ingredient.get_unitOfMeasure_display }}
+                            {% endif %}
+                            {% if not ingredient.quantity_2 == 0 %}
+                            {% display_fraction ingredient.quantity_2 allow_mixed_numbers=True %}
+                            {{ ingredient.get_unitOfMeasure_2_display }}
+                            {% endif %}
+                    </div>
+                    {% endfor %}
 
-                {% if recipe.author %}
-                    <p><strong>Created by <a href="{% url 'mealplanner:user-recipes' pk=recipe.author.id %}">{{ recipe.author.username }}</a></strong></p>
-                {% endif %}
 
-                <a href="{% url 'mealplanner:recipe-update' recipe.pk %}">Edit</a> | <a href="{% url 'mealplanner:recipe-delete' recipe.pk %}">Delete</a>
-            </ul>
-            {% endfor %}
-    </div>
+                    <div class="panel-footer">
+                        <table>
+                            <tr>
+                                {% if recipe.author %}
+                                <td>
+                                    <strong>Created by <a href="{% url 'mealplanner:user-recipes' pk=recipe.author.id %}">{{ recipe.author.username }}</a></strong>&nbsp;&nbsp;
+                                </td>
+                                {% endif %}
+                                <td>
+                                    &nbsp;&nbsp;<a href="{% url 'mealplanner:recipe-update' recipe.pk %}">Edit</a> | <a href="{% url 'mealplanner:recipe-delete' recipe.pk %}">Delete</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+    </ul>
+    {% endfor %}
+
 </div>
 
 {% endblock %}

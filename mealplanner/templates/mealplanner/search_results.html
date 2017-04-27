@@ -6,17 +6,31 @@
 
 {% block content %}
 
-<h2>Search Results</h2>
-    <ul>
-        {% if search_results == None or search_results.count == 0 %}
-        <p>No results found</p>
-        {% else %}
-        <p>{{search_results.count}} results found</p>
-        {% for recipe in search_results %}
-            <p><a href="{% url 'mealplanner:recipe-detail' recipe.pk %}">{{ recipe.name }}</a></p>
-            <p>{{ recipe.text }}</p>
-        {% endfor %}
-        {% endif %}
-    </ul>
+<div class="container">
+    <h2>Search Results</h2>
+        <ul>
+            {% if search_results == None or search_results.count == 0 %}
+
+            <div class="panel panel-default">
+                <div class="panel-heading">No results found</div>
+                <div class="panel-body">Try another search</div>
+            </div>
+
+            {% else %}
+
+            <h3>{{search_results.count}} result found</h3>
+
+            {% for recipe in search_results %}
+
+            <div class="panel panel-default">
+                <div class="panel-heading"><a href="{% url 'mealplanner:recipe-detail' recipe.pk %}">{{ recipe.name }}</a></div>
+                <div class="panel-body">{{ recipe.text }}</div>
+            </div>
+
+            {% endfor %}
+            {% endif %}
+
+        </ul>
+</div>
 
 {% endblock %}

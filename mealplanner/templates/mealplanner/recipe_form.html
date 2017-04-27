@@ -1,41 +1,25 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>MealPlanner -  Add Recipe</title>
-    <script src="{{ STATIC_URL }}js/jquery.min.js"></script>
-    <script src="{{ STATIC_URL }}js/jquery.formset.js"></script>
-    <script type="text/javascript">
-        $(function() {
-            $(".inline.{{ ingredient_form.prefix }}").formset({
-                prefix: "{{ ingredient_form.prefix }}",
-            })
-            $(".inline.{{ instruction_form.prefix }}").formset({
-                prefix: "{{ instruction_form.prefix }}",
-            })
-        })
-    </script>
-</head>
+{% extends "mealplanner/base.html" %}}
+
+{% block content %}
 
 <body>
-    <div>
-        <h1>MealPlanner - Add Recipe</h1>
-        <nav th:fragment="navigation">
-            <a href="/mealplanner">Home</a> |
-            <a href="/mealplanner/lists">Shopping Lists</a> |
-            <a href="/mealplanner/addrecipe">Add Recipe</a>
-        </nav>
+
+    <div class="container">
+        <h2>Add Recipe</h2>
+        <br>
+        <br>
         <form action="." method="post">
             {% csrf_token %}
-            <div>
+            <div class="form-group">
                 {{ form.as_p }}
             </div>
             <fieldset>
-                <legend>Recipe Ingredient</legend>
+                <legend>Recipe Ingredients</legend>
                 {{ ingredient_form.management_form }}
                 {{ ingredient_form.non_form_errors }}
                 {% for form in ingredient_form %}
                     {{ form.id }}
-                    <div class="inline {{ ingredient_form.prefix }}">
+                    <div class="form-group">
                         {{ form.description.errors }}
                         {{ form.description.label_tag }}
                         {{ form.name }}
@@ -49,12 +33,12 @@
             </fieldset>
 
             <fieldset>
-                <legend>Recipe instruction</legend>
+                <legend>Recipe Instructions</legend>
                 {{ instruction_form.management_form }}
                 {{ instruction_form.non_form_errors }}
                 {% for form in instruction_form %}
                     {{ form.id }}
-                    <div class="inline {{ instruction_form.prefix }}">
+                    <div class="form-group">
                         {{ form.number.errors }}
                         {{ form.number.label_tag }}
                         {{ form.number }}
@@ -64,8 +48,9 @@
                     </div>
                 {% endfor %}
             </fieldset>
+            <br>
             <input type="submit" value="Add Recipe" class="submit" />
         </form>
     </div>
-</body>
-</html>
+
+{% endblock %}

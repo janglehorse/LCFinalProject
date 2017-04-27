@@ -19,31 +19,36 @@
 
     <body>
                 <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse fixed-top">
-                  <a class="navbar-brand" href="/mealplanner">MealPlanner</a>
+                    <a class="navbar-brand" href="/mealplanner">MealPlanner</a>
                   <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-                    <ul class="navbar-nav mr-auto">
-                      <li class="nav-link" style="list-style: none">
+                    <ul class="nav nav-pills" style="list-style: none">
+                      <li role="presentation">
                           <a class="nav-link" href="/mealplanner/addrecipe">Add Recipe</a>
                         &nbsp;&nbsp;&nbsp;&nbsp;
                       </li>
-                      <li class="nav-item" style="list-style: none">
+                      <li class="nav-item">
                         <a class="nav-link" href="/mealplanner/lists">Shopping Lists</a>
                         &nbsp;&nbsp;&nbsp;&nbsp;
                       </li>
-                      <li class="nav-item" style="list-style: none">
+                      <li class="nav-item">
                         <a class="nav-link" href="/mealplanner/addlist">New Shopping List</a>
                         &nbsp;&nbsp;&nbsp;&nbsp;
                       </li>
-                      <li style="list-style: none; color:white">
+                      <li style="color:white">
                           {% if user.is_authenticated %}
-                          Logged in as {{ request.user.username }}&nbsp;|&nbsp;<a href="{% url 'logout' %}">Log Out</a>
-                          &nbsp;&nbsp;&nbsp;&nbsp;
+                          <a href="{% url 'mealplanner:user-recipes' pk=request.user.pk %}">Logged in as {{ request.user.username }}</a>
                           {% else %}
-                          Not logged in &nbsp;|&nbsp; <a href="{% url 'login' %}">Login</a>
-                          &nbsp;&nbsp;&nbsp;&nbsp;
+                          <a href="{% url 'login' %}">Login</a>
                           {% endif %}
+                      </li>
+                      <li role="presentation">
+                          {% if user.is_authenticated %}
+                          <a href="{% url 'logout' %}">Log Out</a>
+                          {% endif %}
+                      </li>
                     </ul>
-                    <form class="form-inline" action="{% url 'mealplanner:recipe-search' %}" method="." accept-charset="utf-8">
+
+                    <form class="navbar-form navbar-right" action="{% url 'mealplanner:recipe-search' %}" method="." accept-charset="utf-8">
                       <input class="form-control" type="text" name="q" placeholder="Recipe Name">
                       <button class="btn" type="submit">Search Recipes</button>
                     </form>
@@ -58,12 +63,18 @@
                     </main>
                 </div>
 </body>
+    <div class="container">
         <footer>
+            <br>
+            <br>
             <p>
                 &copy; 2017 <a href="https://github.com/janglehorse">Caleb Travers</a>
             <p>
                 <a href="https://github.com/janglehorse/LCFinalProject">
                     View Source Code for This Project</a>
             </p>
+            <br>
+            <br>
         </footer>
+    </div>
 </html>

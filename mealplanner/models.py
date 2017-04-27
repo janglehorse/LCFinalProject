@@ -11,9 +11,6 @@ class Recipe(models.Model):
     text = models.CharField(max_length=255)
     author = models.ForeignKey(User, blank=True, null=True)
 
-    #TODO:
-    #Create an author field.
-
     def __str__(self):
         return self.name + " | Text: " + " " + self.text
 
@@ -140,7 +137,7 @@ class ShoppingList(models.Model):
 
     def produce(self):
         """
-        Returns all ingredients in the ShoppingList in category specified in the function name.
+        Returns a queryset of all ingredients in the ShoppingList belonging to the category specified.
         """
         #Find all recipes in the ShoppingList object
         pks = self.recipes.all().values_list('pk', flat=True)
