@@ -106,7 +106,6 @@ class Ingredient(models.Model):
     def get_absolute_url(self):
         return reverse('mealplanner:ingredient-detail', kwargs={'pk': self.pk})
 
-
 class Instruction(models.Model):
     recipe = models.ForeignKey(Recipe)
     number = models.PositiveSmallIntegerField()
@@ -128,12 +127,12 @@ class ShoppingList(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('mealplanner:list-detail', kwargs={'pk': self.pk})
+        return reverse('mealplanner:list-recipe', kwargs={'pk': self.pk})
 
     class Meta:
-        ordering = ('created',)
+        ordering = ('-created',)
 
-    #Methods for getting ingredeints by category:
+    #Methods for getting ingredients by category:
 
     def produce(self):
         """

@@ -18,7 +18,7 @@
 
             {% else %}
 
-            <h3>{{search_results.count}} result found</h3>
+            <h3>{{search_results.count}} {% if search_results.count > 1 %} results {% else %} result {% endif %} found</h3>
 
             {% for recipe in search_results %}
 

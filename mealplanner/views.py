@@ -216,7 +216,7 @@ class ListByRecipe(generic.DetailView):
 
 class ListIndex(generic.base.TemplateView):
 
-    template_name = "mealplanner/list_index.html"
+    template_name = "mealplanner/shoppinglist_index.html"
 
     def get_context_data(self, **kwargs):
         context = super(ListIndex, self).get_context_data(**kwargs)

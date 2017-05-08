@@ -1,0 +1,23 @@
+{% extends "mealplanner/base.html" %}
+
+{% block title %}
+{{ block.super }}
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    {% if list_index.count == 0 %}
+    <p>No lists yet!</p>
+    {% else %}
+    {% for list in list_index %}
+    <h3><a href="{% url 'mealplanner:list-recipe' list.pk %}">{{ list.name }}</a></h3>
+    <p>{{ list.created }}</p>
+    <a href="{% url 'mealplanner:list-update' list.pk %}">Edit</a> | <a href="{% url 'mealplanner:list-delete' list.pk %}">Delete</a>
+    {% endfor %}
+    {% endif %}
+
+</div>
+
+{% endblock %}

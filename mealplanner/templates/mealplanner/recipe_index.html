@@ -18,7 +18,7 @@
             <li>
                 <div class="panel panel-info">
                 <div class="panel-heading">
-                    <h4><a href="{% url 'mealplanner:recipe-detail' recipe.pk %}">{{ recipe.name }}</a></h4>
+                    <h4><a href="{% url 'mealplanner:recipe-detail' recipe.pk %}"><strong>{{ recipe.name }}</strong></a></h4>
                 </div>
                     <div class="panel-body"><i>{{ recipe.text }}</i></div>
                     {% for ingredient in recipe.ingredient_set.all %}
